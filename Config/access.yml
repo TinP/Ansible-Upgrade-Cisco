@@ -1,0 +1,25 @@
+#---
+#-  hosts: all
+#   connection: local
+#   gather_facts: no
+#   vars_files:
+#     - vars/vlans.yml
+#   handlers:
+#     - include: handlers/main.yml
+#
+#  Example of a yaml file that is called - access.yml
+---
+access:
+  # device_ip: 192.168.50.105
+  # device_ip: 172.16.1.73
+  device_ip: "{{ inventory_hostname }}"
+  username: ddth
+  password: ddth1234
+
+ios:
+  ios_2960: c2960-lanbasek9-mz.150-2.SE11.bin
+
+ios-xe:
+  ios: cat3k_caa-universalk9.16.06.06.SPA
+
+...

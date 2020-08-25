@@ -1,0 +1,101 @@
+---
+
+- name: Show Commands Playbook
+  hosts: [csr]
+  connection: network_cli
+  gather_facts: no
+  connection: local
+  ignore_errors: yes
+  become: yes
+  become_method: enable
+  strategy: linear
+
+  vars_prompt:
+    - name: "reboot_bool"
+      prompt: "Reboot the devices at end of play? (Y or N)"
+      private: no
+    - name: "server_ip"
+      prompt: "IP address of this host"
+      private: no
+ 
+  tasks:
+  - name: Get Login credentials
+    include_vars: /mnt/d/Lab/ansible-ios-xe/template/access.yml
+
+  - name: Define Provider
+    set_fact:
+      provider:
+        host: "{{ inventory_hostname }}"
+        username: "{{ access['username'] }}"
+        password: "{{ access['password'] }}"
+        timeout: 200
+
+  - name: Is file present
+    ios_command:
+      provider: "{{ provider }}"
+      authorize: yes
+      commands: "sh flash: | inc c2960-lanbasek9-mz.150-2.SE11.bin"
+ 
+  - name: Load IOS
+    ios_command:
+      provider: "{{ provider }}"
+      authorize: yes
+      commands:
+        - command: "copy tftp://192.168.1.200/c2960-lanbasek9-mz.150-2.SE11.bin flash:"
+          prompt: "]? "
+          answer: "\r"
+    vars:
+        ansible_command_timeout: 6000
+
+  - name: Run 'Base Line'
+
+    ios_command:
+      provider: "{{ provider }}"
+      authorize: yes
+
+      commands:
+        - show run
+        - show version
+        - show ip interface br
+        - show boot
+        - show inventory
+
+    register: output
+
+  - copy:
+      content: "{{
+      output.stdout[0] + '\n' + '\n'
+     + output.stdout[1] + '\n' + '\n'
+      + output.stdout[2] + '\n' + '\n'
+      + output.stdout[3] + '\n' + '\n'
+      + output.stdout[4] + '\n' + '\n'
+      }}"
+
+    dest: "/mnt/d/Lab/ansible-ios-xe/{{ inventory_hostname }} before.txt"
+
+- name: Set BOOT System
+  ios_config:
+    provider: "{{ provider }}"
+    authorize: yes
+    lines:
+      - no boot system
+      - boot system flash:c2960-lanbasek9-mz.150-2.SE11.bin
+  #  host: "{{ inventory_hostname }}"
+
+
+- name: Write Config
+  ios_config:
+    provider: "{{ provider }}"
+    authorize: yes
+    save_when: modified
+
+- name: Reload
+  ios_command:
+  provider: "{{ provider }}"
+  authorize: yes
+  commands:
+    - command: "reload"
+      prompt: "[confirm]"
+      answer: "\r"
+
+...
