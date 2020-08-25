@@ -8,7 +8,7 @@
 
   tasks:
   - name: Get Login credentials
-    include_vars: /mnt/d/Lab/ansible-ios-xe/template/access.yml
+    include_vars: /mnt/d/Lab/NTT-Automate/Config/access.yml
 
   - name: Define Provider
     set_fact:
