@@ -1,0 +1,426 @@
+Building configuration...
+
+Current configuration : 8795 bytes
+!
+! Last configuration change at 09:43:17 UTC Tue Aug 25 2020
+!
+version 15.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+service call-home
+!
+hostname Switch
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-vrf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+!
+username ddth privilege 15 password 0 ********
+no aaa new-model
+switch 1 provision ws-c3650-24ps
+!
+!
+!
+!
+!
+!
+ip domain-name ddth.com
+!
+!
+login on-success log
+qos queue-softmax-multiplier 100
+call-home
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+  no destination transport-method email
+!
+crypto pki trustpoint TP-self-signed-948635793
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-948635793
+ revocation-check none
+ rsakeypair TP-self-signed-948635793
+!
+crypto pki trustpoint SLA-TrustPoint
+ revocation-check crl
+!
+!
+crypto pki certificate chain TP-self-signed-948635793
+ certificate self-signed 01
+  3082032E 30820216 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 39343836 33353739 33301E17 0D323030 38323530 32323233 
+  335A170D 33303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3934 38363335 
+  37393330 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 
+  82010100 C59E7DFA DAAFF0D8 FFBBA477 C2ADD742 F28DEB1F 0C00952A C86D054E 
+  FA47CCC7 FB1BBCEB C0F2E326 A1141994 A31ADC98 0358277A 1906553B BD5F574A 
+  A5FBEA9E 4E35D1BE E1B75FF5 88AEA047 72FFA405 FFA6AF95 B51D8DEE 8F2EF2AD 
+  1BB1CC1F F9284725 5FE7A640 968607AB 7994D195 F6B7714B B3865458 A2BC7E3C 
+  43FC719B E4AF66CE FDA00802 7A0AF816 CDE53BAA FF11293F 7B4320EC FF5C8C75 
+  1A881426 96BABE16 2FD71233 5247FA22 D34DF020 38AA376B 7782B11A 9688B198 
+  008F95E7 FC808249 AFCEB510 907EAC62 C60D3D82 0A49BCC6 35036ABC 0CB98C9B 
+  571762C2 49851B27 98A9496A EB82B7EF A4F429E7 725D68CB E48AC7B6 38F89B70 
+  42EBB477 02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 
+  0603551D 23041830 168014B8 4B229919 41273B93 533209C5 6E300361 D0500D30 
+  1D060355 1D0E0416 0414B84B 22991941 273B9353 3209C56E 300361D0 500D300D 
+  06092A86 4886F70D 01010505 00038201 0100305D 55D3BB81 6EE0E99C 8A4A6074 
+  68E02B77 224F7E4A B5C97620 87A3BC06 0D5507B4 9E4C2E89 7D9F785C 6451D158 
+  2152F895 678CB2F0 7CF4ECF5 09EA597B A702305D E04DC6D7 2891124D 2FBD53D9 
+  C9512EE3 9E13650D 98817725 C582A051 F399ED9F D986A756 FE13499B E40DF99C 
+  36BF05BA 22F6C346 AFBAC54F B492068D 62CE3553 5809E9F7 06383E0D 8C8872F4 
+  C7258566 A5FD06F8 5EC38225 38EF4D53 F54AA108 5EFCBCBC F6ACC48F 5FCA88BC 
+  99E5FDD5 6E87BECB 90F15281 89CEDC78 C0A45016 8186F425 966E1A0F 4DB7FA63 
+  38AA5DAC 9E133175 4BB06D84 41EEC6D6 FA82DC65 C1FF9494 9FF015D4 7E747E01 
+  09D33369 CEBEE446 CE795F76 E623317E 3F32
+  	quit
+crypto pki certificate chain SLA-TrustPoint
+ certificate ca 01
+  30820321 30820209 A0030201 02020101 300D0609 2A864886 F70D0101 0B050030 
+  32310E30 0C060355 040A1305 43697363 6F312030 1E060355 04031317 43697363 
+  6F204C69 63656E73 696E6720 526F6F74 20434130 1E170D31 33303533 30313934 
+  3834375A 170D3338 30353330 31393438 34375A30 32310E30 0C060355 040A1305 
+  43697363 6F312030 1E060355 04031317 43697363 6F204C69 63656E73 696E6720 
+  526F6F74 20434130 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 
+  82010A02 82010100 A6BCBD96 131E05F7 145EA72C 2CD686E6 17222EA1 F1EFF64D 
+  CBB4C798 212AA147 C655D8D7 9471380D 8711441E 1AAF071A 9CAE6388 8A38E520 
+  1C394D78 462EF239 C659F715 B98C0A59 5BBB5CBD 0CFEBEA3 700A8BF7 D8F256EE 
+  4AA4E80D DB6FD1C9 60B1FD18 FFC69C96 6FA68957 A2617DE7 104FDC5F EA2956AC 
+  7390A3EB 2B5436AD C847A2C5 DAB553EB 69A9A535 58E9F3E3 C0BD23CF 58BD7188 
+  68E69491 20F320E7 948E71D7 AE3BCC84 F10684C7 4BC8E00F 539BA42B 42C68BB7 
+  C7479096 B4CB2D62 EA2F505D C7B062A4 6811D95B E8250FC4 5D5D5FB8 8F27D191 
+  C55F0D76 61F9A4CD 3D992327 A8BB03BD 4E6D7069 7CBADF8B DF5F4368 95135E44 
+  DFC7C6CF 04DD7FD1 02030100 01A34230 40300E06 03551D0F 0101FF04 04030201 
+  06300F06 03551D13 0101FF04 05300301 01FF301D 0603551D 0E041604 1449DC85 
+  4B3D31E5 1B3E6A17 606AF333 3D3B4C73 E8300D06 092A8648 86F70D01 010B0500 
+  03820101 00507F24 D3932A66 86025D9F E838AE5C 6D4DF6B0 49631C78 240DA905 
+  604EDCDE FF4FED2B 77FC460E CD636FDB DD44681E 3A5673AB 9093D3B1 6C9E3D8B 
+  D98987BF E40CBD9E 1AECA0C2 2189BB5C 8FA85686 CD98B646 5575B146 8DFC66A8 
+  467A3DF4 4D565700 6ADF0F0D CF835015 3C04FF7C 21E878AC 11BA9CD2 55A9232C 
+  7CA7B7E6 C1AF74F6 152E99B7 B1FCF9BB E973DE7F 5BDDEB86 C71E3B49 1765308B 
+  5FB0DA06 B92AFE7F 494E8A9E 07B85737 F3A58BE1 1A48A229 C37C1E69 39F08678 
+  80DDCD16 D6BACECA EEBC7CF9 8428787B 35202CDC 60E4616A B623CDBD 230E3AFB 
+  418616A9 4093E049 4D10AB75 27E86F73 932E35B5 8862FDAE 0275156F 719BB2F0 
+  D697DF7F 28
+  	quit
+diagnostic bootup level minimal
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+hw-switch switch 1 logging onboard message level 3
+!
+redundancy
+ mode sso
+!
+!
+!
+class-map match-any system-cpp-police-topology-control
+  description Topology control
+class-map match-any system-cpp-police-sw-forward
+  description Sw forwarding, L2 LVX data, LOGGING
+class-map match-any system-cpp-default
+  description DHCP Snooping, EWLC control, EWCL data 
+class-map match-any system-cpp-police-sys-data
+  description Learning cache ovfl, Crypto Control, Exception, EGR Exception, NFL SAMPLED DATA, RPF Failed
+class-map match-any system-cpp-police-punt-webauth
+  description Punt Webauth
+class-map match-any system-cpp-police-l2lvx-control
+  description L2 LVX control packets
+class-map match-any system-cpp-police-forus
+  description Forus Address resolution and Forus traffic
+class-map match-any system-cpp-police-multicast-end-station
+  description MCAST END STATION
+class-map match-any system-cpp-police-multicast
+  description Transit Traffic and MCAST Data
+class-map match-any system-cpp-police-l2-control
+  description L2 control
+class-map match-any system-cpp-police-dot1x-auth
+  description DOT1X Auth
+class-map match-any system-cpp-police-data
+  description ICMP redirect, ICMP_GEN and BROADCAST
+class-map match-any system-cpp-police-stackwise-virt-control
+  description Stackwise Virtual
+class-map match-any non-client-nrt-class
+class-map match-any system-cpp-police-routing-control
+  description Routing control
+class-map match-any system-cpp-police-protocol-snooping
+  description Protocol snooping
+class-map match-any system-cpp-police-dhcp-snooping
+  description DHCP snooping
+class-map match-any system-cpp-police-system-critical
+  description System Critical and Gold
+!
+policy-map port_child_policy
+ class non-client-nrt-class
+  bandwidth remaining ratio 10
+policy-map system-cpp-policy
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ vrf forwarding Mgmt-vrf
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0/1
+!
+interface GigabitEthernet1/0/2
+!
+interface GigabitEthernet1/0/3
+!
+interface GigabitEthernet1/0/4
+!
+interface GigabitEthernet1/0/5
+!
+interface GigabitEthernet1/0/6
+!
+interface GigabitEthernet1/0/7
+!
+interface GigabitEthernet1/0/8
+!
+interface GigabitEthernet1/0/9
+!
+interface GigabitEthernet1/0/10
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface Vlan1
+ ip address 192.168.1.10 255.255.255.0
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+!
+!
+banner motd ^C##############################################
+##############    password : cisco    ###############
+#################################################
+^C
+!
+line con 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login
+!
+wsma agent exec
+ profile httplistener
+ profile httpslistener
+!
+wsma agent config
+ profile httplistener
+ profile httpslistener
+!
+wsma agent filesys
+ profile httplistener
+ profile httpslistener
+!
+wsma agent notify
+ profile httplistener
+ profile httpslistener
+!
+!
+wsma profile listener httplistener
+ transport http
+!
+wsma profile listener httpslistener
+ transport https
+!
+ap group default-group
+end
+
+Cisco IOS Software, IOS-XE Software, Catalyst L3 Switch Software (CAT3K_CAA-UNIVERSALK9-M), Version 03.06.09E RELEASE SOFTWARE (fc4)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2018 by Cisco Systems, Inc.
+Compiled Sat 08-Sep-18 18:21 by prod_rel_team
+
+
+
+Cisco IOS-XE software, Copyright (c) 2005-2015 by cisco Systems, Inc.
+All rights reserved.  Certain components of Cisco IOS-XE software are
+licensed under the GNU General Public License ("GPL") Version 2.0.  The
+software code licensed under GPL Version 2.0 is free software that comes
+with ABSOLUTELY NO WARRANTY.  You can redistribute and/or modify such
+GPL code under the terms of GPL Version 2.0.
+(http://www.gnu.org/licenses/gpl-2.0.html) For more details, see the
+documentation or "License Notice" file accompanying the IOS-XE software,
+or the applicable URL provided on the flyer accompanying the IOS-XE
+software.
+
+
+
+ROM: IOS-XE ROMMON
+BOOTLDR: CAT3K_CAA Boot Loader (CAT3K_CAA-HBOOT-M) Version 3.56, RELEASE SOFTWARE (P)
+
+Switch uptime is 16 hours, 43 minutes
+Uptime for this control processor is 16 hours, 46 minutes
+System returned to ROM by reload
+System image file is "flash:packages.conf"
+Last reload reason: Reload Command
+
+
+
+This product contains cryptographic features and is subject to United
+States and local country laws governing import, export, transfer and
+use. Delivery of Cisco cryptographic products does not imply
+third-party authority to import, export, distribute or use encryption.
+Importers, exporters, distributors and users are responsible for
+compliance with U.S. and local country laws. By using this product you
+agree to comply with applicable laws and regulations. If you are unable
+to comply with U.S. and local laws, return this product immediately.
+
+A summary of U.S. laws governing Cisco cryptographic products may be found at:
+http://www.cisco.com/wwl/export/crypto/tool/stqrg.html
+
+If you require further assistance please contact us by sending email to
+export@cisco.com.
+
+License Level: Ipbase
+License Type: Permanent
+Next reload license Level: Ipbase
+
+cisco WS-C3650-24PS (MIPS) processor with 4194304K bytes of physical memory.
+Processor board ID FDO2101E1W4
+1 Virtual Ethernet interface
+28 Gigabit Ethernet interfaces
+2048K bytes of non-volatile configuration memory.
+4194304K bytes of physical memory.
+252000K bytes of Crash Files at crashinfo:.
+1611414K bytes of Flash at flash:.
+0K bytes of  at webui:.
+0K bytes of Dummy USB Flash at usbflash0:.
+
+Base Ethernet MAC Address          : 00:2c:c8:c3:df:80
+Motherboard Assembly Number        : 73-15899-06
+Motherboard Serial Number          : FDO21010ATF
+Model Revision Number              : P0
+Motherboard Revision Number        : A0
+Model Number                       : WS-C3650-24PS
+System Serial Number               : FDO2101E1W4
+
+
+Switch Ports Model              SW Version        SW Image              Mode   
+------ ----- -----              ----------        ----------            ----   
+*    1 28    WS-C3650-24PS      03.06.09E         cat3k_caa-universalk9 INSTALL
+
+
+Configuration register is 0x102
+
+Interface              IP-Address      OK? Method Status                Protocol
+Vlan1                  192.168.1.10    YES NVRAM  up                    up      
+GigabitEthernet0/0     unassigned      YES unset  administratively down down    
+GigabitEthernet1/0/1   unassigned      YES unset  up                    up      
+GigabitEthernet1/0/2   unassigned      YES unset  down                  down    
+GigabitEthernet1/0/3   unassigned      YES unset  down                  down    
+GigabitEthernet1/0/4   unassigned      YES unset  down                  down    
+GigabitEthernet1/0/5   unassigned      YES unset  down                  down    
+GigabitEthernet1/0/6   unassigned      YES unset  down                  down    
+GigabitEthernet1/0/7   unassigned      YES unset  down                  down    
+GigabitEthernet1/0/8   unassigned      YES unset  down                  down    
+GigabitEthernet1/0/9   unassigned      YES unset  down                  down    
+GigabitEthernet1/0/10  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/11  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/12  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/13  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/14  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/15  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/16  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/17  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/18  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/19  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/20  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/21  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/22  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/23  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/24  unassigned      YES unset  down                  down    
+GigabitEthernet1/1/1   unassigned      YES unset  down                  down    
+GigabitEthernet1/1/2   unassigned      YES unset  down                  down    
+GigabitEthernet1/1/3   unassigned      YES unset  down                  down    
+GigabitEthernet1/1/4   unassigned      YES unset  down                  down
+
+---------------------------
+Switch 1
+---------------------------
+Current Boot Variables:
+BOOT variable does not exist
+
+Boot Variables on next reload:
+BOOT variable = flash:packages.conf;
+Allow Dev Key = yes
+Manual Boot = no
+Enable Break = no
+
+NAME: "c36xx Stack", DESCR: "c36xx Stack"
+PID: WS-C3650-24PS     , VID: V04  , SN: FDO2101E1W4
+
+NAME: "Switch 1", DESCR: "WS-C3650-24PS-S"
+PID: WS-C3650-24PS-S   , VID: V04  , SN: FDO2101E1W4
+
+NAME: "Switch 1 - Power Supply A", DESCR: "Switch 1 - Power Supply A"
+PID: PWR-C2-640WAC     , VID: V04  , SN: QCS2309423L
+

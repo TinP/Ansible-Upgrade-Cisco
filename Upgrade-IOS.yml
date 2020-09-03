@@ -49,4 +49,4 @@
       + output.stdout[4] + '\n' + '\n'
       }}"
 
-      dest: "/mnt/d/Lab/ansible-ios-xe/{{ inventory_hostname }} before.txt"
+      dest: "/mnt/d/Lab/NTT-Automate/{{ inventory_hostname }} before.txt"
