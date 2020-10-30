@@ -1,0 +1,7 @@
+---
+- name: ios-facts - gather device facts
+  ios_facts:
+    gather_subset: 
+      - min
+      - hardware
+  register: device_facts
